@@ -1,21 +1,20 @@
 import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         Maze maze = new Maze(4, 4);
         maze.configure();
 
-        System.out.println("=== HILL CLIMBING MAZE ===");
+        System.out.println("___________HILL CLIMBING MAZE___________");
         maze.display();
 
         HillClimbing search = new HillClimbing();
-        List<String> path = search.hillClimb(maze.getInitialState(), maze.getObjectives().get(0));
+        List<MazeState> path = search.hillClimb(maze.getInitialState(), maze.getObjectives().get(0), maze);
 
-        // Mostrar la trayectoria
-        System.out.println("\nTRAYECTORIA DESDE 0 (0,0):");
-        System.out.println("Path found (" + path.size() + " steps):");
-        for (String step : path) {
-            System.out.print(step + " -> ");
+        System.out.println("\nTRAYECTORIA DESDE (0,0):");
+        for (MazeState step : path) {
+            System.out.print(step.getId() + " -> ");
         }
-        System.out.println("END");
+        System.out.println("FIN");
     }
 }

@@ -3,25 +3,25 @@ import java.util.List;
 
 public class HillClimbing {
 
-    public static List<String> hillClimb(MazeState start, MazeState goal) {
-        List<String> path = new ArrayList<>();
+    public static List<MazeState> hillClimb(MazeState start, MazeState goal, Maze maze) {
+        List<MazeState> path = new ArrayList<>();
         MazeState currentState = start;
 
-
-        while (currentState != goal) {
+        while (!currentState.equals(goal)) {
+            maze.display(currentState);
             MazeState nextState = getBestNeighbor(currentState);
 
-
             if (nextState == null) {
-                System.out.println("NO SE ENCONTRO EL CAMINO CORRECTO ");
+                System.out.println("NO SE ENCONTRÓ EL CAMINO CORRECTO");
                 break;
             }
 
-            path.add(currentState.getId());
+            path.add(currentState);
             currentState = nextState;
         }
 
-        path.add(currentState.getId());
+        path.add(currentState);
+        maze.display(currentState);
         return path;
     }
 
@@ -29,7 +29,6 @@ public class HillClimbing {
         List<State> neighbors = state.getNeighbors();
         MazeState bestNeighbor = null;
         double bestHeuristic = Double.MAX_VALUE;
-
 
         for (State neighbor : neighbors) {
             MazeState mazeNeighbor = (MazeState) neighbor;
